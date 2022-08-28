@@ -17,6 +17,17 @@
 	"onCreateCommand": "bash ./.devcontainer/scripts/onCreateCommand.sh",
 	"updateContentCommand": "bash ./.devcontainer/scripts/updateContentCommand.sh",
 
+	"extensions": [
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"HashiCorp.terraform",
+		"ms-azuretools.vscode-azurefunctions",
+		"ms-vscode.azure-account",
+		"ms-azuretools.vscode-azureterraform",
+		"Vue.volar",
+		"Vue.vscode-typescript-vue-plugin"
+	],
+
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
 	"features": {
