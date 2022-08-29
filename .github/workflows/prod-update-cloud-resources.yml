@@ -6,6 +6,11 @@ on:
       - "main"
     paths:
       - "iac/terraform/**"
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "iac/terraform/**"
   workflow_dispatch:
 
 env:
@@ -21,7 +26,7 @@ defaults:
     working-directory: iac/terraform/envs/prod
 
 jobs:
-  plan:
+  check:
     name: 'Check updates'
     runs-on: ubuntu-latest
 
@@ -52,7 +57,10 @@ jobs:
 
   deploy:
     name: 'Deploy resources'
+    needs: check
+
     environment: production
+    if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
 
     runs-on: ubuntu-latest
     
@@ -67,6 +75,11 @@ jobs:
       run: terraform init -backend-config="resource_group_name=${RESOURCE_GROUP_MANAGE_NAME}" -backend-config="storage_account_name=${TERRAFORM_BACKEND_STORAGE_ACCOUNT_NAME}"
       env:
         RESOURCE_GROUP_MANAGE_NAME: rg-${{ env.WORKLOAD_NAME }}-manage
+
+    - name: Terraform Plan
+      run: terraform plan -input=false
+      env:
+        TF_VAR_workload_name: ${{ env.WORKLOAD_NAME }}
 
     # Deploy resources
     - name: Terraform Apply
