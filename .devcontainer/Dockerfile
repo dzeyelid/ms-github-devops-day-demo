@@ -12,7 +12,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     nodejs \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* \
+  && npm install -g npm
+
+RUN npm install -g @azure/static-web-apps-cli
 
 RUN wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb \
   && dpkg -i packages-microsoft-prod.deb \
