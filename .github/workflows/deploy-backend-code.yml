@@ -56,7 +56,7 @@ jobs:
 
     environment:
       name: staging
-      url: https://func-msgh-devops-demo-staging-backend.azurewebsites.net
+      url: https://orange-sand-0e6b75700.1.azurestaticapps.net
 
     runs-on: windows-latest
 
@@ -90,7 +90,7 @@ jobs:
 
     environment:
       name: production
-      url: https://func-msgh-devops-demo-prod-backend.azurewebsites.net
+      url: https://salmon-plant-0c0e13700.1.azurestaticapps.net
 
     runs-on: windows-latest
 
