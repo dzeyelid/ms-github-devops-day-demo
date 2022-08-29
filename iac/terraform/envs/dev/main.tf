@@ -16,8 +16,8 @@ provider "azurerm" {
   features {}
 }
 
-module "backend" {
-  source = "../../modules/backend"
+module "core" {
+  source = "../../modules/core"
 
   workload_name = var.workload_name
   env           = var.env

@@ -28,12 +28,16 @@ RESOURCE_GROUP_DEV_ID=$(echo ${RESOURCE_GROUPS} | jq -r '.resourceGroupDevId.val
 # Create a service principal that has permission to access to project's resource groups
 SERVICE_PRINCIPAL=$(az ad sp create-for-rbac \
   --role Contributor \
-  --scopes ${RESOURCE_GROUP_MANAGE_ID} ${RESOURCE_GROUP_PROD_ID} ${RESOURCE_GROUP_STAGING_ID} ${RESOURCE_GROUP_DEV_ID})
+  --scopes ${RESOURCE_GROUP_MANAGE_ID} ${RESOURCE_GROUP_PROD_ID} ${RESOURCE_GROUP_STAGING_ID})
+
+SERVICE_PRINCIPAL_DEV=$(az ad sp create-for-rbac \
+  --role Contributor \
+  --scopes ${RESOURCE_GROUP_MANAGE_ID} ${RESOURCE_GROUP_DEV_ID})
 
 # Set the ARM_ environment variables to allow Terraform to authenticate to access Azure
 # And, you should set the same environment variables to GitHub Actions secrets
-export ARM_CLIENT_ID=$(echo ${SERVICE_PRINCIPAL} | jq -r '.appId')
-export ARM_CLIENT_SECRET=$(echo ${SERVICE_PRINCIPAL} | jq -r '.password')
+export ARM_CLIENT_ID=$(echo ${SERVICE_PRINCIPAL_DEV} | jq -r '.appId')
+export ARM_CLIENT_SECRET=$(echo ${SERVICE_PRINCIPAL_DEV} | jq -r '.password')
 export ARM_SUBSCRIPTION_ID=$(az account show --query id --output tsv)
 export ARM_TENANT_ID=$(az account show --query tenantId --output tsv)
 

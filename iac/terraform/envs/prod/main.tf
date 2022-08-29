@@ -20,8 +20,8 @@ locals {
   env = "prod"
 }
 
-module "backend" {
-  source = "../../modules/backend"
+module "core" {
+  source = "../../modules/core"
 
   workload_name = var.workload_name
   env           = local.env
