@@ -8,7 +8,7 @@ terraform {
 
   backend "azurerm" {
     container_name = "tfstate"
-    key            = "staging.terraform.tfstate"
+    key            = "dev.terraform.tfstate"
   }
 }
 
