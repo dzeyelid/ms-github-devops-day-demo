@@ -11,5 +11,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
 RUN wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb \
   && dpkg -i packages-microsoft-prod.deb \
   && apt-get update \
-  && apt-get install azure-functions-core-tools-4 \
+  && apt-get -y install --no-install-recommends \
+    azure-functions-core-tools-4 \
+    dotnet6 \
   && rm -rf /var/lib/apt/lists/*
