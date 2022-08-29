@@ -60,7 +60,7 @@ jobs:
     needs: check
 
     environment: production
-    if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     runs-on: ubuntu-latest
     
