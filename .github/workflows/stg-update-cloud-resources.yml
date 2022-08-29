@@ -1,0 +1,60 @@
+name: 'stg: Update cloud resources'
+
+on:
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "iac/terraform/**"
+  workflow_dispatch:
+
+env:
+  ARM_CLIENT_ID: ${{ secret.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secret.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secret.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secret.ARM_TENANT_ID }}
+  TERRAFORM_BACKEND_STORAGE_ACCOUNT_NAME: stprp6rlhavin2g
+  WORKLOAD_NAME: msgh-devops-demo
+
+jobs:
+  deploy:
+    name: 'Deploy resources'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: iac/terraform/envs/staging
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      run: terraform init \
+        -backend-config="resource_group_name=${RESOURCE_GROUP_MANAGE_NAME}" \
+        -backend-config="storage_account_name=${TERRAFORM_BACKEND_STORAGE_ACCOUNT_NAME}"
+      env:
+        RESOURCE_GROUP_MANAGE_NAME: rg-${{ env.WORKLOAD_NAME }}-manage
+
+    # Checks that all Terraform configuration files adhere to a canonical format
+    - name: Terraform Format
+      run: terraform fmt -check
+
+    # Generates an execution plan for Terraform
+    - name: Terraform Plan
+      run: terraform plan -input=false
+      env:
+        TF_VAR_workload_name: ${{ env.WORKLOAD_NAME }}
+
+      # On push to "main", build or change infrastructure according to Terraform configuration files
+      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+    - name: Terraform Apply
+      run: terraform apply -auto-approve -input=false
+      env:
+        TF_VAR_workload_name: ${{ env.WORKLOAD_NAME }}
