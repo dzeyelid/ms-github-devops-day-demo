@@ -59,8 +59,11 @@ jobs:
     name: 'Deploy resources'
     needs: check
 
-    environment: production
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    environment:
+      name: production
+      url: https://salmon-plant-0c0e13700.1.azurestaticapps.net
 
     runs-on: ubuntu-latest
     
