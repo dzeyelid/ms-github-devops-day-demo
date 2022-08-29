@@ -8,10 +8,16 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends \
+    nodejs \
+  && rm -rf /var/lib/apt/lists/*
+
 RUN wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb \
   && dpkg -i packages-microsoft-prod.deb \
   && apt-get update \
-  && apt-get -y install --no-install-recommends \
+  && apt-get install -y --no-install-recommends \
     azure-functions-core-tools-4 \
     dotnet6 \
   && rm -rf /var/lib/apt/lists/*
