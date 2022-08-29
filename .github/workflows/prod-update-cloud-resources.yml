@@ -6,6 +6,11 @@ on:
       - "main"
     paths:
       - "iac/terraform/**"
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "iac/terraform/**"
   workflow_dispatch:
 
 env:
@@ -21,7 +26,7 @@ defaults:
     working-directory: iac/terraform/envs/prod
 
 jobs:
-  plan:
+  check:
     name: 'Check updates'
     runs-on: ubuntu-latest
 
@@ -52,6 +57,8 @@ jobs:
 
   deploy:
     name: 'Deploy resources'
+    needs: check
+
     environment: production
 
     runs-on: ubuntu-latest
@@ -68,8 +75,14 @@ jobs:
       env:
         RESOURCE_GROUP_MANAGE_NAME: rg-${{ env.WORKLOAD_NAME }}-manage
 
+    - name: Terraform Plan
+      run: terraform plan -input=false
+      env:
+        TF_VAR_workload_name: ${{ env.WORKLOAD_NAME }}
+
     # Deploy resources
     - name: Terraform Apply
+      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
       env:
         TF_VAR_workload_name: ${{ env.WORKLOAD_NAME }}
