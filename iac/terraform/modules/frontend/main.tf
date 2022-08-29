@@ -31,13 +31,13 @@ resource "azurerm_resource_group_template_deployment" "frontend" {
   "contentVersion": "1.0.0.0",
   "parameters": {
     "region": {
-      "type": "string"
+      "type": "String"
     },
     "backendResourceId": {
-      "type": "string"
+      "type": "String"
     },
     "staticSiteName": {
-      "type": "string"
+      "type": "String"
     }
   },
   "variables": {},
