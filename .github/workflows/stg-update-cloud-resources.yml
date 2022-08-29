@@ -9,10 +9,10 @@ on:
   workflow_dispatch:
 
 env:
-  ARM_CLIENT_ID: ${{ secret.ARM_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secret.ARM_CLIENT_SECRET }}
-  ARM_SUBSCRIPTION_ID: ${{ secret.ARM_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secret.ARM_TENANT_ID }}
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
   TERRAFORM_BACKEND_STORAGE_ACCOUNT_NAME: stprp6rlhavin2g
   WORKLOAD_NAME: msgh-devops-demo
 
