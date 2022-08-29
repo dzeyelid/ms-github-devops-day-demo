@@ -42,7 +42,7 @@ resource "azurerm_service_plan" "backend" {
   resource_group_name = data.azurerm_resource_group.shared.name
   location            = data.azurerm_resource_group.shared.location
   os_type             = "Windows"
-  sku_name            = "Y1"
+  sku_name            = "P1v2"
 }
 
 resource "azurerm_windows_function_app" "backend" {
@@ -52,7 +52,18 @@ resource "azurerm_windows_function_app" "backend" {
   storage_account_name       = azurerm_storage_account.backend_func.name
   storage_account_access_key = azurerm_storage_account.backend_func.primary_access_key
   service_plan_id            = azurerm_service_plan.backend.id
-  site_config {
 
+  https_only                  = true
+  functions_extension_version = "~4"
+
+  site_config {
+    always_on = true
+    application_stack {
+      node_version = "~16"
+    }
+    ftps_state    = "Disabled"
+    http2_enabled = true
+    # application_insights_key = azurerm_application_insights.backend.instrumentation_key
+    # application_insights_connection_string = azurerm_application_insights.backend.connection_string
   }
 }
