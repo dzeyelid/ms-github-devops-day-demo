@@ -22,6 +22,7 @@
 		"esbenp.prettier-vscode",
 		"HashiCorp.terraform",
 		"ms-azuretools.vscode-azurefunctions",
+		"ms-azuretools.vscode-bicep",
 		"ms-vscode.azure-account",
 		"ms-azuretools.vscode-azureterraform",
 		"Vue.volar",
