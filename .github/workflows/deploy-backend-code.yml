@@ -56,6 +56,9 @@ jobs:
 
     runs-on: windows-latest
 
+    env:
+      AZURE_FUNCITONAPP_NAME: rg-msgh-devops-demo-staging
+
     defaults:
       run:
         shell: pwsh
@@ -86,6 +89,9 @@ jobs:
       url: https://func-msgh-devops-demo-prod-backend.azurewebsites.net
 
     runs-on: windows-latest
+
+    env:
+      AZURE_FUNCITONAPP_NAME: func-msgh-devops-demo-prod-backend
 
     defaults:
       run:
