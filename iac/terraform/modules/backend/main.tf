@@ -61,9 +61,9 @@ resource "azurerm_windows_function_app" "backend" {
     application_stack {
       node_version = "~16"
     }
-    ftps_state    = "Disabled"
-    http2_enabled = true
-    # application_insights_key = azurerm_application_insights.backend.instrumentation_key
-    # application_insights_connection_string = azurerm_application_insights.backend.connection_string
+    ftps_state                             = "Disabled"
+    http2_enabled                          = true
+    application_insights_key               = azurerm_application_insights.backend.instrumentation_key
+    application_insights_connection_string = azurerm_application_insights.backend.connection_string
   }
 }
