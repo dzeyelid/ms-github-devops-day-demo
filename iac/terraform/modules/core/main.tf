@@ -9,7 +9,7 @@ module "backend" {
 module "frontend" {
   source = "../frontend"
 
-  workload_name     = var.workload_name
-  env               = var.env
-  backendResourceId = module.backend.functionResourceId
+  workload_name              = var.workload_name
+  env                        = var.env
+  linked_backend_resource_id = module.backend.functionResourceId
 }
