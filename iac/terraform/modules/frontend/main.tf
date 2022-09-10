@@ -18,8 +18,8 @@ resource "azurerm_resource_group_template_deployment" "frontend" {
     "region" = {
       value = data.azurerm_resource_group.shared.location
     }
-    "backendResourceId" = {
-      value = var.backendResourceId
+    "linked_backend_resource_id" = {
+      value = var.linked_backend_resource_id
     }
     "staticSiteName" = {
       value = azurerm_static_site.frontend.name
@@ -33,7 +33,7 @@ resource "azurerm_resource_group_template_deployment" "frontend" {
     "region": {
       "type": "String"
     },
-    "backendResourceId": {
+    "linked_backend_resource_id": {
       "type": "String"
     },
     "staticSiteName": {
@@ -47,7 +47,7 @@ resource "azurerm_resource_group_template_deployment" "frontend" {
       "apiVersion": "2022-03-01",
       "name": "[concat(parameters('staticSiteName'), '/backend-api')]",
       "properties": {
-        "backendResourceId": "[parameters('backendResourceId')]",
+        "backendResourceId": "[parameters('linked_backend_resource_id')]",
         "region": "[parameters('region')]"
       }
     }

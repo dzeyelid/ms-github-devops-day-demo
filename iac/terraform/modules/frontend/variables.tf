@@ -6,6 +6,6 @@ variable "env" {
   type = string
 }
 
-variable "backendResourceId" {
+variable "linked_backend_resource_id" {
   type = string
 }

@@ -18,6 +18,8 @@ provider "azurerm" {
 
 locals {
   env = "prod"
+  # backend_service_plan_sku_name = "Y1"
+  backend_function_always_on = false
 }
 
 module "core" {
@@ -25,4 +27,6 @@ module "core" {
 
   workload_name = var.workload_name
   env           = local.env
+  # backend_service_plan_sku_name = local.backend_service_plan_sku_name
+  backend_function_always_on = local.backend_function_always_on
 }
