@@ -7,7 +7,12 @@ variable "env" {
   default = "dev"
 }
 
-variable "backend_service_plan_sku_name" {
+# variable "backend_service_plan_sku_name" {
+#   type    = string
+#   default = "Y1"
+# }
+
+variable "backend_function_always_on" {
   type    = string
-  default = "Y1"
+  default = false
 }

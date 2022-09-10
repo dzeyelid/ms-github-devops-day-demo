@@ -57,7 +57,8 @@ resource "azurerm_windows_function_app" "backend" {
   functions_extension_version = "~4"
 
   site_config {
-    always_on = var.service_plan_sku_name != "Y1"
+    always_on = var.function_always_on
+    # always_on = var.function_always_on || (var.service_plan_sku_name != "Y1")
     application_stack {
       node_version = "~16"
     }

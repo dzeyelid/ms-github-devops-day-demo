@@ -19,7 +19,8 @@ provider "azurerm" {
 module "core" {
   source = "../../modules/core"
 
-  workload_name                 = var.workload_name
-  env                           = var.env
-  backend_service_plan_sku_name = var.backend_service_plan_sku_name
+  workload_name = var.workload_name
+  env           = var.env
+  # backend_service_plan_sku_name = var.backend_service_plan_sku_name
+  backend_function_always_on = var.backend_function_always_on
 }
