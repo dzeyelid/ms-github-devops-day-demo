@@ -17,12 +17,14 @@ provider "azurerm" {
 }
 
 locals {
-  env = "staging"
+  env                           = "staging"
+  backend_service_plan_sku_name = "Y1"
 }
 
 module "core" {
   source = "../../modules/core"
 
-  workload_name = var.workload_name
-  env           = local.env
+  workload_name                 = var.workload_name
+  env                           = local.env
+  backend_service_plan_sku_name = local.backend_service_plan_sku_name
 }

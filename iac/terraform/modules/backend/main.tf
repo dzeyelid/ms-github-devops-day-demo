@@ -42,7 +42,7 @@ resource "azurerm_service_plan" "backend" {
   resource_group_name = data.azurerm_resource_group.shared.name
   location            = data.azurerm_resource_group.shared.location
   os_type             = "Windows"
-  sku_name            = "P1v2"
+  sku_name            = var.service_plan_sku_name
 }
 
 resource "azurerm_windows_function_app" "backend" {
@@ -57,7 +57,7 @@ resource "azurerm_windows_function_app" "backend" {
   functions_extension_version = "~4"
 
   site_config {
-    always_on = true
+    always_on = var.service_plan_sku_name != "Y1"
     application_stack {
       node_version = "~16"
     }
