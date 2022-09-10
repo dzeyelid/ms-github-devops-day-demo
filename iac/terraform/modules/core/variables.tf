@@ -13,5 +13,5 @@ variable "backend_service_plan_sku_name" {
 
 variable "backend_function_always_on" {
   type    = string
-  default = true
+  default = false
 }
